@@ -136,11 +136,11 @@ void runDrunkChange()
 {
 	srand(time(0));
 	//target:
-	float distance = fmod(rand(), 30.0);
+	float distance = fmod(rand(), 300.0);
 	float angle = rand() % 360;
 	//drunk
-	float step_size = 0.001;
-	float accuracy = 0.001;
+	float step_size = 5;
+	float accuracy = 0.1;
 
 	using namespace VECTORC;
 	vector target(distance, angle, cdtMode::polar);
@@ -148,15 +148,17 @@ void runDrunkChange()
 	int steps = 0;
 
 	std::ofstream fout;
-	fout.open("Drunk_gohome.txt");
+	fout.open("Drunk_gohome_line.txt");
+	fout << target.x() << ", " << target.y() << "\n";
 
 	//std::cout << "Target Distance: " << distance << ", Step Size: " << step_size << '\n';
-	fout << "Target Distance: " << distance << ", Step Size: " << step_size << '\n';
+	//fout << "Target Distance: " << distance << ", Step Size: " << step_size << '\n';
 
 	//while (drunk.magnitude() < distance)
 	while (drunk.distance(target) > accuracy)
 	{
-		fout << steps << ": (x,y) = (" << drunk.x() << ", " << drunk.y() << ")\n";
+		//fout << steps << ": (x,y) = (" << drunk.x() << ", " << drunk.y() << ")\n";
+		fout << drunk.x() << ", " << drunk.y() << "\n";
 		//std::cout << steps << ": (x,y) = (" << drunk.x() << ", " << drunk.y() << ")\n";
 		//std::cout << steps << ": (m,a) = (" << drunk.magnitude() << ", " << drunk.angle() << "бу)\n";
 		drunk.step(step_size, target);
@@ -167,18 +169,18 @@ void runDrunkChange()
 	else if (drunk.angle() > 0 and target.angle() < 0) agl = drunk.angle() - 360;
 	else agl = 360 + drunk.angle();
 	//std::cout << "After " << steps << " steps,the subject has the following location:\n"
-	fout << "After " << steps << " steps,the subject has the following location:\n"
-		<< "Target: \n"
-		<< "(tx,ty) = (" << target.x() << ", " << target.y() << ")\n"
-		<< "Result: \n"
-		<< "(x , y) = (" << drunk.x() << ", " << drunk.y() << ")\n"
-		<< "or\n"
-		<< "Target: \n"
-		<< "(tm,ta) = (" << target.magnitude() << ", " << target.angle() << "бу)\n"
-		<< "(m , a) = (" << drunk.magnitude() << ", " << agl << "бу)\n"
-		<< "Average outward distance per step = "
-		<< (100.0 / steps)
-		<< '\n';
+	//fout << "After " << steps << " steps,the subject has the following location:\n"
+	//	<< "Target: \n"
+	//	<< "(tx,ty) = (" << target.x() << ", " << target.y() << ")\n"
+	//	<< "Result: \n"
+	//	<< "(x , y) = (" << drunk.x() << ", " << drunk.y() << ")\n"
+	//	<< "or\n"
+	//	<< "Target: \n"
+	//	<< "(tm,ta) = (" << target.magnitude() << ", " << target.angle() << "бу)\n"
+	//	<< "(m , a) = (" << drunk.magnitude() << ", " << agl << "бу)\n"
+	//	<< "Average outward distance per step = "
+	//	<< (100.0 / steps)
+	//	<< '\n';
 	fout.close();
 
 }

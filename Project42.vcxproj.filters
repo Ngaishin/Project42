@@ -24,12 +24,24 @@
     <ClCompile Include="coordinate_change.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="VectorPro.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stepstatistisc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coordinate.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="coordinate_change.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorPro.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stepstatistisc.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,26 +1,23 @@
 #pragma once
 #include <iostream>
 
-namespace VECTORC
+namespace STTT
 {
-	enum cdtMode { rect, polar };
 	class vector
 	{
 	private:
 		float _x;
 		float _y;
-		float _mag;
-		float _ang;
 	public:
 		vector()
-			:_x(0), _y(0), _mag(0), _ang(0) {}
-		vector(float x, float y = 0, cdtMode coordinate = rect);
-		void setCde(float x, float y, cdtMode coordinate = rect);
+			:_x(0), _y(0){}
+		vector(float x, float y = 0);
+		void setCde(float x, float y);
 		void reset();
 		float x() { return _x; }
 		float y() { return _y; }
-		float magnitude() { return _mag; }
-		float angle() { return _ang; }
+		float magnitude();
+		float angle();
 		vector operator+(const vector& vt) const;
 		vector& operator+=(const vector& vt);
 		vector operator-() const;
@@ -30,9 +27,14 @@ namespace VECTORC
 		friend std::ostream& operator<<(std::ostream& os, const vector& vt);
 
 		float distance(vector& vt);
-		vector& step(float f, const vector&);
+		vector& step(float f);
+
 	};
 
 }
 
-void runDrunkChange();
+
+void statistic(int time);
+
+
+

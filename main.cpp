@@ -1,15 +1,13 @@
 #include <iostream>
 //#include "coordinate.h"
-#include "coordinate_change.h"
-
-
-using namespace std;
-using namespace VECTORC;
+//#include "coordinate_change.h"
+//#include "VectorPro.h"
+//#include "stepstatistisc.h"
 
 int main()
 {
-	runDrunkChange();
 
 
 	return 0;
 }
+

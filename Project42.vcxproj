@@ -130,10 +130,14 @@
     <ClCompile Include="coordinate.cpp" />
     <ClCompile Include="coordinate_change.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="stepstatistisc.cpp" />
+    <ClCompile Include="VectorPro.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coordinate.h" />
     <ClInclude Include="coordinate_change.h" />
+    <ClInclude Include="stepstatistisc.h" />
+    <ClInclude Include="VectorPro.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

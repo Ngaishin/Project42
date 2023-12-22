@@ -1,64 +1,44 @@
-#include "coordinate.h"
+#include <iostream>
+#include "VectorPro.h"
 #include <cmath>
-#include <iomanip>
 #include <ctime>
 #include <cstdlib>
 #include <fstream>
+#include <iomanip>
 
 
-namespace VECTOR
+namespace  myVector
 {
-	vector::vector(float x, float y, cdtMode coordinate)
+	vector::vector(float x, float y)
 	{
-		double rect_to_pol = 45.0 / atan(1);
-		if (coordinate == rect)
-		{
-			_x = x;
-			_y = y;
-			_mag = sqrt(x * x + y * y);
-			_ang = atan2(y, x) * rect_to_pol;
-		}
-		else if (coordinate == polar)
-		{
-			_mag = x;
-			_ang = fmod(y, 360);
-			_y = _mag * sin(_ang / rect_to_pol);
-			_x = _mag * cos(_ang / rect_to_pol);
-		}
-		else
-		{
-			_x = _y = _mag = _ang = 0;
-			std::cout << "Incorrect input!\nall parameter were set 0.\n";
-		}
+		_x = x;
+		_y = y;
+
+
 	}
 
-	void vector::setCde(float x, float y, cdtMode coordinate)
+	void vector::setCde(float x, float y)
 	{
 		double rect_to_pol = 45.0 / atan(1);
-		if (coordinate == rect)
-		{
-			_x = x;
-			_y = y;
-			_mag = sqrt(x * x + y * y);
-			_ang = atan2(y, x) * rect_to_pol;
-		}
-		else if (coordinate == polar)
-		{
-			_mag = x;
-			_ang = fmod(y, 360);
-			_y = _mag * sin(_ang / rect_to_pol);
-			_x = _mag * cos(_ang / rect_to_pol);
-		}
-		else
-		{
-			_x = _y = _mag = _ang = 0;
-			std::cout << "Incorrect input!\nall parameter were set 0.\n";
-		}
+		_x = x;
+		_y = y;
 	}
 
 	void vector::reset()
 	{
-		_x = _y = _mag = _ang = 0;
+		_x = _y = 0;
+	}
+
+	float vector::magnitude()
+	{
+		return 	sqrt(_x * _x + _y * _y);
+	}
+
+	float vector::angle()
+	{
+		double rect_to_pol = 45.0 / atan(1);
+		return  atan2(_y, _x) * rect_to_pol;
+
 	}
 
 	vector vector::operator+(const vector& vt) const
@@ -103,7 +83,6 @@ namespace VECTOR
 		std::cout << std::fixed << std::setprecision(2);
 
 		os << "rectangular: " << '(' << vt._x << ',' << vt._y << ')' << std::endl;
-		os << "polar: " << '(' << vt._mag << ',' << vt._ang << "бу)\n" << std::endl;
 
 		std::cout.flags(f);
 		return os;
@@ -114,38 +93,42 @@ namespace VECTOR
 	float vector::distance(vector& vt)
 	{
 		vector tem = vt - *this;
-		return tem._mag;
+		return tem.magnitude();
 	}
 
 
 	vector& vector::step(float f)
 	{
+		double rect_to_pol = 45.0 / atan(1);
 		float direction = fmod(rand(), 360);
-		vector tem(f, direction, cdtMode::polar);
+		vector tem(cos(direction / rect_to_pol) * f, sin(direction / rect_to_pol) * f);
 		return *this += tem;
 	}
 }
 
-void runDrunk()
+void vrunDrunk()
 {
-	float distance = 100;
-	float step_size = 20;
+	using namespace myVector;
 
-	using namespace VECTOR;
-	vector target(100, 45, cdtMode::polar);
+	float step_size = 5;
+	vector target(45, 45);
+
+	float distance = target.magnitude();
 	vector drunk;
 	int steps = 0;
+	std::cout << "target magnitude: " << target.magnitude() << "\n"
+		<< "target angle: " << target.angle() << "\n";
 	std::ofstream fout;
-	fout.open("Drunk_gohome.txt");
+	fout.open("VectorText.txt");
 
 	fout << "Target Distance: " << distance << ", Step Size: " << step_size << '\n';
 	srand(time(0));
 	//while (drunk.distance(target) > 10)
 	while (drunk.magnitude() < distance)
 	{
-		fout << steps << ": (x,y) = (" << drunk.x() <<", " << drunk.y() << ")\n";
+		fout << steps << ": (x,y) = (" << drunk.x() << ", " << drunk.y() << ")\n";
 		//<< ": (m,a) = (" << drunk.magnitude() << ", " << drunk.angle() << "бу)\n";
-		drunk.step(20);
+		drunk.step(step_size);
 		steps++;
 	}
 
